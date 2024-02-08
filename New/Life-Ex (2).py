@@ -20,9 +20,21 @@ spark = SparkSession.builder.appName('PySpark').getOrCreate()
 
 # COMMAND ----------
 
-
-dataframe = spark.read.option("header","true").format("csv").load("dbfs:/FileStore/tables/life_expectancy.csv")
+schema = StructType([
+    StructField("Country", StringType(), True),
+    StructField("Country Code", StringType(), True),
+    StructField("Year", StringType(), True),
+    StructField("Female Life Expectancy", StringType(), True),
+    StructField("Male Life Expectancy", StringType(), True),
+    StructField("Population", StringType(), True),
+    StructField("Life Expectancy Gap", StringType(), True)
+])
+dataframe = spark.read.option("header","true").schema(schema).format("csv").load("dbfs:/FileStore/tables/life_expectancy.csv")
 display(dataframe.printSchema)
+
+# COMMAND ----------
+
+
 df1=dataframe.withColumnRenamed("Female Life Expectancy","FemaleLifeExpectancy").withColumnRenamed("Male Life Expectancy","MaleLifeExpectancy").withColumnRenamed("Country Code","CountryCode")
 
 
