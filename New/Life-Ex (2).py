@@ -82,4 +82,4 @@ deltaTable.toDF().write.option(
 
 # COMMAND ----------
 
-print("Hello")
+print("")
